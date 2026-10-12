@@ -4,10 +4,12 @@ public class PickUp : MonoBehaviour
 {
     [SerializeField] Transform holdAt;
     private Vector3 ogPos;
-    public float holdSpeed;
+    [SerializeField] float holdSpeed;
     private float holdMass = 1;
     [SerializeField] Transform holding;
     LayerMask mask;
+    Vector3 holdForceDir;
+    float clampedSpeed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,7 +17,7 @@ public class PickUp : MonoBehaviour
         ogPos = holdAt.position;
         if(holding != null){
             holdMass = holding.GetComponent<Rigidbody>().mass;
-            holding.GetComponent<Rigidbody>().mass = 0.1f;
+            //holding.GetComponent<Rigidbody>().mass = 0.1f;
         }
     }
 
@@ -31,8 +33,13 @@ public class PickUp : MonoBehaviour
         }
         float step = holdSpeed * Time.deltaTime;
         if(holding != null){
-            holding.position = Vector3.MoveTowards(holding.position, holdAt.position, step);
-            holding.SetParent(this.transform);
+            //holding.position = Vector3.MoveTowards(holding.position, holdAt.position, step);
+            holdForceDir = Vector3.Normalize(holdAt.position - holding.position);
+            if(0.2 < (Vector3.Distance(holdAt.position, holding.position))){
+                holding.GetComponent<Rigidbody>().AddForce(holdForceDir * holdSpeed);
+            }
+            
+            holding.eulerAngles = this.transform.eulerAngles;
         }
     }
 
@@ -41,7 +48,10 @@ public class PickUp : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(holdAt.position, holdAt.GetComponent<Collider>().bounds.size.x /2, mask);
         holding = hitColliders[0].transform;
         holdMass = holding.GetComponent<Rigidbody>().mass;
-        holding.GetComponent<Rigidbody>().mass = 0.1f;
+        holding.SetParent(this.transform);
+        holding.GetComponent<Collider>().excludeLayers = LayerMask.GetMask("Player");
+        holding.GetComponent<Rigidbody>().excludeLayers = LayerMask.GetMask("Player");
+        //holding.GetComponent<Rigidbody>().mass = 0.1f;
     }
     void Letgo()
     {
@@ -49,6 +59,8 @@ public class PickUp : MonoBehaviour
         //holdAt.position = ogPos;
         holding.GetComponent<Rigidbody>().mass = holdMass;
       holding.SetParent(null);
+      holding.GetComponent<Collider>().includeLayers = LayerMask.GetMask("Player");
+        holding.GetComponent<Rigidbody>().includeLayers = LayerMask.GetMask("Player");
         holding = null;
         
     }

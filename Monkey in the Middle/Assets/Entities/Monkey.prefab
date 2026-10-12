@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   holdAt: {fileID: 6061478158966999281}
-  holdSpeed: 2
+  holdSpeed: 5
   holding: {fileID: 0}
 --- !u!1 &8198673598359643346
 GameObject:
