@@ -388,5 +388,25 @@ namespace StarterAssets
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
         }
+
+        /// <summary>
+        /// Sets vertical speed to a value when bouncing on a trampoline
+        /// </summary>
+        /// <param name="bounceSpeed"></param>
+        public void Bounce(float bounceSpeed)
+        {
+            _verticalVelocity = bounceSpeed;
+            //Debug.Log("Bounce");
+        }
+
+        /// <summary>
+        /// Sets vertical speed to be positive when the trampoline has bounceByVelocity on
+        /// </summary>
+        /// <param name="bounceSpeed"></param>
+        public void Bounce(bool bounceByVelocity)
+        {
+            _verticalVelocity = Mathf.Abs(_verticalVelocity);
+            //Debug.Log("Bounce");
+        }
     }
 }

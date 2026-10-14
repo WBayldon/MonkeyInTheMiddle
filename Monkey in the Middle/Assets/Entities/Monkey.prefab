@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 598639504409915930}
   - component: {fileID: 6095035713005987029}
   - component: {fileID: 6440664385965535670}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Monkey
   m_TagString: Player
   m_Icon: {fileID: 0}
