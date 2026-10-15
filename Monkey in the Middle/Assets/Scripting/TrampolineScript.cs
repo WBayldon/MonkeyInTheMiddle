@@ -30,10 +30,10 @@ public class TrampolineScript : MonoBehaviour
             if (other.TryGetComponent(out Rigidbody rb))
             {
                 Vector3 normal = transform.up;
-                float downVelocity = rb.linearVelocity.y;
+                float downSpeed = Mathf.Abs(rb.linearVelocity.y);
 
                 if (bounceByVelocity)
-                    rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z) + normal * downVelocity;
+                    rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z) + normal * downSpeed;
                 else
                     rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z) + normal * trampolineSpeed;
             }
