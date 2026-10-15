@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrampolineScript
   trampolineSpeed: 8
-  trampolineCollider: {fileID: 2842060099477554022}
+  bounceByVelocity: 0
 --- !u!33 &8958975164037531645
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -240,8 +240,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.6, y: 1, z: 0.6}
-  m_Center: {x: 0.000000059604645, y: 1.5, z: -0.00000008940697}
+  m_Size: {x: 0.6, y: 1.5, z: 0.6}
+  m_Center: {x: 0.000000059604645, y: 1.75, z: -0.00000008940697}
 --- !u!54 &5883758940293460296
 Rigidbody:
   m_ObjectHideFlags: 0

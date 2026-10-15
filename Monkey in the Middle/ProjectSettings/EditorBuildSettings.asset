@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/TestTrampoline.unity
+    guid: 3b43b66c91c51754c84771251bc85104
+  - enabled: 1
+    path: Assets/Scenes/TestWinning.unity
+    guid: 883232a189e4fe5498fd01b0ce25681f
+  - enabled: 1
+    path: Assets/Scenes/TrampolineIntro.unity
+    guid: 09cbdc18e771b984fa745053b42cfdbd
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

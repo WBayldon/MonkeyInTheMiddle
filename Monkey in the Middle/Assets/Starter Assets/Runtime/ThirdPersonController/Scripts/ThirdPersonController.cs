@@ -85,6 +85,8 @@ namespace StarterAssets
         private float _targetRotation = 0.0f;
         private float _rotationVelocity;
         private float _verticalVelocity;
+        // this is used to solve an issue with trampolines not bouncing properly
+        private float _verticalVelocityLastFrame;
         private float _terminalVelocity = 53.0f;
 
         // timeout deltatime
@@ -192,6 +194,7 @@ namespace StarterAssets
 
         private void CameraRotation()
         {
+            if (GameStateMachine.Instance.Current == GameState.Paused) return;
             // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
@@ -281,6 +284,14 @@ namespace StarterAssets
 
         private void JumpAndGravity()
         {
+            // This is to prevent _verticalVelocityLastFrame from being set to a value
+            // after the "stop our velocity dropping infinitely when grounded" runs.
+            // The reason it's necessary is because it is not guaranteed that the trampoline trigger
+            // will be entered within a frame of being grounded (since the trigger checks at FixedUpdate() timings,
+            // and this runs at Update() timings.
+            if ((Grounded && _verticalVelocityLastFrame <= -2.25f && _verticalVelocity <= -2.25f) || (!Grounded))
+                _verticalVelocityLastFrame = _verticalVelocity;
+
             if (Grounded)
             {
                 // reset the fall timeout timer
@@ -405,8 +416,8 @@ namespace StarterAssets
         /// <param name="bounceSpeed"></param>
         public void Bounce(bool bounceByVelocity)
         {
-            _verticalVelocity = Mathf.Abs(_verticalVelocity);
-            //Debug.Log("Bounce");
+            _verticalVelocity = Mathf.Abs(_verticalVelocityLastFrame);
+            //Debug.Log("Bounce: " + -_verticalVelocity);
         }
     }
 }
