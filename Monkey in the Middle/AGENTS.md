@@ -2,7 +2,7 @@
 - Project name: Monkey in the Middle
 - Unity version: Unity 6000.3.19f1
 - Active game object:
-  - Name: UIDocument
+  - Name: PlayerFollowCamera
   - Tag: Untagged
-  - Layer: UI
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

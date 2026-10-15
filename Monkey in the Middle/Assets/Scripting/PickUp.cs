@@ -24,7 +24,8 @@ public class PickUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Mouse.current.leftButton.wasPressedThisFrame)
+        if (GameStateMachine.Instance.Current == GameState.Paused) return;
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             if(holding != null) Letgo();
             else{
