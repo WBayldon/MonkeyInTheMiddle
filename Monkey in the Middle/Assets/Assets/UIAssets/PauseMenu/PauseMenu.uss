@@ -1,20 +1,24 @@
-/* General Selectors */
 .centered {
     position: absolute;
-    left: 0; right: 0; top: 0; bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     align-items: center;
     justify-content: center;
 }
 
-/* Main Background */
 #Background {
     position: absolute;
-    left: 0; right: 0; top: 0; bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* Button Holders */
 .panel {
+    position: absolute;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 45px;
     padding: 10px 10px 0 10px;
@@ -24,19 +28,18 @@
     height: auto;
 }
 
-/* Buttons */
+.p-text {
+    -unity-text-align: middle-center;
+    font-size: 30px;
+    -unity-font-definition: url("project://database/Assets/Assets/UIAssets/Font/Nunito/static/Nunito-Regular.ttf?fileID=12800000&guid=17592a853c084e34ca51c3136eb2c6bf&type=3#Nunito-Regular");
+}
+
 .button {
     width: 300px;
     height: 70px;
     border-radius: 35px;
     background-color: rgba(255, 255, 255, 0.4);
     margin: 0 0 10px 0;
-
-    -unity-text-align: middle-center;
-
-    font-size: 30px;
-    -unity-font-definition: url("project://database/Assets/Assets/UIAssets/Font/Nunito/static/Nunito-Regular.ttf");
-
     transition-property: background-color, height, width, border-radius;
     transition-duration: 0.25s;
     transition-timing-function: ease-out;

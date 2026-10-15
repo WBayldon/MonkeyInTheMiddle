@@ -192,6 +192,7 @@ namespace StarterAssets
 
         private void CameraRotation()
         {
+            if (GameStateMachine.Instance.Current == GameState.Paused) return;
             // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
