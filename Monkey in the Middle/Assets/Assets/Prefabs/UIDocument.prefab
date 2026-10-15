@@ -69,5 +69,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenuView
   Level1SceneName: TestWinning
-  Level2SceneName: TestTrampoline
+  Level2SceneName: TrampolineIntro
   Level3SceneName: 
