@@ -57,7 +57,7 @@
 .p-text {
     -unity-text-align: middle-center;
     font-size: 30px;
-    -unity-font-definition: url("project://database/Assets/Assets/UIAssets/Font/Nunito/static/Nunito-Regular.ttf?fileID=12800000&guid=17592a853c084e34ca51c3136eb2c6bf&type=3#Nunito-Regular");
+    -unity-font-definition: url("project://database/Assets/Assets/UIAssets/Font/Nunito/static/Nunito-Regular SDF.asset");
 }
 
 .button {
