@@ -1,0 +1,12 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Assets/UIAssets/PauseMenu/PauseMenu.uss?fileID=7433441132597879392&amp;guid=710adb9821848764f8d4efdc7e75314f&amp;type=3#PauseMenu"/>
+    <ui:VisualElement name="Root" class="centered">
+        <ui:VisualElement name="Background"/>
+        <ui:VisualElement name="MainPause" class="panel">
+            <ui:Button text="Resume" name="ResumeButton" class="button"/>
+            <ui:Button text="Unstuck" name="UnstuckButton" class="button"/>
+            <ui:Button text="Level Select" name="LevelSelectButton" class="button"/>
+            <ui:Button text="Quit Game" name="QuitGameButton" class="button"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
