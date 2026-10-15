@@ -1,14 +1,12 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(UIDocument))]
 public class PauseMenuView : MonoBehaviour
 {
-    public event Action UnstuckRequested;
-    public event Action LevelSelectRequested;
-
     private VisualElement root;
     private GameStateMachine machine;
 
@@ -62,8 +60,8 @@ public class PauseMenuView : MonoBehaviour
     }
 
     private void OnResumeClicked() => machine.SetState(GameState.Playing);
-    private void OnUnstuckClicked() => UnstuckRequested?.Invoke();
-    private void OnLevelSelectClicked() => LevelSelectRequested?.Invoke();
+    private void OnUnstuckClicked() => Unstuck(machine.Current);
+    private void OnLevelSelectClicked() => OpenLevelSelect();
     private void OnQuitClicked() => Application.Quit();
 
     private void OnStateChanged(GameState previous, GameState next) => Apply(next);
@@ -71,5 +69,16 @@ public class PauseMenuView : MonoBehaviour
     private void Apply(GameState state)
     {
         root.style.display = state == GameState.Paused ? DisplayStyle.Flex : DisplayStyle.None;
+    }
+
+    private void Unstuck(GameState state)
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
+    }
+
+    private void OpenLevelSelect()
+    {
+        // Do stuff
     }
 }

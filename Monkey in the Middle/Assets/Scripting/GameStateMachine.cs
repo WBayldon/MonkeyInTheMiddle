@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// The GameState FSM enum
+/// </summary>
 public enum GameState
 {
     MainMenu,
@@ -16,10 +19,16 @@ public class GameStateMachine : MonoBehaviour
 {
     public static GameStateMachine Instance { get; private set; }
 
+    /// <summary>
+    /// Listen to the state of the game being changed.
+    /// Returns the previous and new state, in that order
+    /// </summary>
     public event Action<GameState, GameState> StateChanged;
 
+    /// <summary>
+    /// Returns the current game state (get only)
+    /// </summary>
     public GameState Current { get; private set; } = GameState.Playing;
-    public bool GameplayInputAllowed => Current == GameState.Playing;
 
     private void Awake()
     {
@@ -31,6 +40,10 @@ public class GameStateMachine : MonoBehaviour
     {
     }
 
+    /// <summary>
+    /// Sets the gamestate
+    /// </summary>
+    /// <param name="next">The gamestate to set</param>
     public void SetState(GameState next)
     {
         if (next == Current) return;
