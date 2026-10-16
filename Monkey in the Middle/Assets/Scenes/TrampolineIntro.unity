@@ -601,6 +601,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   panel: {fileID: 820968588}
+  nextLevel: RemoteSwitchIntro
+  nextLevelDelay: 2.5
 --- !u!65 &304699334
 BoxCollider:
   m_ObjectHideFlags: 0
