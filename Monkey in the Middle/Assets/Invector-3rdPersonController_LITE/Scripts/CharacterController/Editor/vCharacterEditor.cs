@@ -16,8 +16,8 @@ public class vCharacterEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        if (!skin) skin = Resources.Load("vSkin") as GUISkin;
-        GUI.skin = skin;
+        //if (!skin) skin = Resources.Load("vSkin") as GUISkin;
+        //GUI.skin = skin;
 
         vThirdPersonMotor motor = (vThirdPersonMotor)target;
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Invector.vCharacterController
 {
@@ -6,16 +7,21 @@ namespace Invector.vCharacterController
     {
         #region Variables       
 
-        [Header("Controller Input")]
-        public string horizontalInput = "Horizontal";
-        public string verticallInput = "Vertical";
-        public KeyCode jumpInput = KeyCode.Space;
-        public KeyCode strafeInput = KeyCode.Tab;
-        public KeyCode sprintInput = KeyCode.LeftShift;
+        [Tooltip("If this is on, pressing shift will toggle strafing, otherwise you need to hold")]
+        public bool toggleStrafe;
 
-        [Header("Camera Input")]
-        public string rotateCameraXInput = "Mouse X";
-        public string rotateCameraYInput = "Mouse Y";
+
+        // variables are off because they were for the old input system
+        //[Header("Controller Input")]
+        //public string horizontalInput = "Horizontal";
+        //public string verticallInput = "Vertical";
+        //public KeyCode jumpInput = KeyCode.Space;
+        //public KeyCode strafeInput = KeyCode.Tab;
+        //public KeyCode sprintInput = KeyCode.LeftShift;
+
+        //[Header("Camera Input")]
+        //public string rotateCameraXInput = "Mouse X";
+        //public string rotateCameraYInput = "Mouse Y";
 
         [HideInInspector] public vThirdPersonController cc;
         [HideInInspector] public vThirdPersonCamera tpCamera;
@@ -83,8 +89,15 @@ namespace Invector.vCharacterController
 
         public virtual void MoveInput()
         {
-            cc.input.x = Input.GetAxis(horizontalInput);
-            cc.input.z = Input.GetAxis(verticallInput);
+            //cc.input.x = Input.GetAxis(horizontalInput);
+            //cc.input.z = Input.GetAxis(verticallInput);
+        }
+
+        private void OnMove(InputValue value)
+        {
+            Vector2 moveInput = value.Get<Vector2>();
+            cc.input.x = moveInput.x;
+            cc.input.z = moveInput.y;
         }
 
         protected virtual void CameraInput()
@@ -107,24 +120,45 @@ namespace Invector.vCharacterController
             if (tpCamera == null)
                 return;
 
-            var Y = Input.GetAxis(rotateCameraYInput);
-            var X = Input.GetAxis(rotateCameraXInput);
+            //var Y = Input.GetAxis(rotateCameraYInput);
+            //var X = Input.GetAxis(rotateCameraXInput);
 
-            tpCamera.RotateCamera(X, Y);
+            //tpCamera.RotateCamera(X, Y);
+        }
+
+        private void OnLook(InputValue value)
+        {
+            //if (cameraMain)
+            //{
+            //    cc.UpdateMoveDirection(cameraMain.transform);
+            //}
+
+            //if (tpCamera == null)
+            //    return;
+
+            Vector2 look = value.Get<Vector2>();
+
+            tpCamera.RotateCamera(look.x, -look.y);
         }
 
         protected virtual void StrafeInput()
         {
-            if (Input.GetKeyDown(strafeInput))
+            //if (Input.GetKeyDown(strafeInput))
+            //    cc.Strafe();
+        }
+
+        private void OnStrafe(InputValue value)
+        {
+            if (value.isPressed || !toggleStrafe)
                 cc.Strafe();
         }
 
         protected virtual void SprintInput()
         {
-            if (Input.GetKeyDown(sprintInput))
-                cc.Sprint(true);
-            else if (Input.GetKeyUp(sprintInput))
-                cc.Sprint(false);
+            //if (Input.GetKeyDown(sprintInput))
+            //    cc.Sprint(true);
+            //else if (Input.GetKeyUp(sprintInput))
+            //    cc.Sprint(false);
         }
 
         /// <summary>
@@ -141,7 +175,13 @@ namespace Invector.vCharacterController
         /// </summary>
         protected virtual void JumpInput()
         {
-            if (Input.GetKeyDown(jumpInput) && JumpConditions())
+            //if (Input.GetKeyDown(jumpInput) && JumpConditions())
+            //    cc.Jump();
+        }
+
+        private void OnJump(InputValue value)
+        {
+            if (value.isPressed && JumpConditions())
                 cc.Jump();
         }
 
