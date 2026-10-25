@@ -27,12 +27,12 @@ public class vCharacterEditor : Editor
 
         GUILayout.Space(30);
 
-        if (GUILayout.Button("Purchase FULL Version"))
-        {
-            Application.OpenURL("https://assetstore.unity.com/publishers/13943");
-        }
+        //if (GUILayout.Button("Purchase FULL Version"))
+        //{
+        //    Application.OpenURL("https://assetstore.unity.com/publishers/13943");
+        //}
 
-        EditorGUILayout.Space();
+        //EditorGUILayout.Space();
 
         EditorGUILayout.BeginVertical();
 
