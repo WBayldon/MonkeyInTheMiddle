@@ -78,9 +78,9 @@ MonoBehaviour:
   jumpWithRigidbodyForce: 0
   jumpAndRotate: 1
   jumpTimer: 0
-  jumpHeight: 8.5
+  jumpHeight: 8
   airSpeed: 4
-  airSmooth: 2
+  airSmooth: 3
   extraGravity: -10
   limitFallVelocity: -15
   groundLayer:
