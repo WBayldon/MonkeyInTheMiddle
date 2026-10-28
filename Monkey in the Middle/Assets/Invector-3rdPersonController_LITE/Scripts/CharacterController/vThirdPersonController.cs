@@ -114,6 +114,9 @@ namespace Invector.vCharacterController
 
         public virtual void Jump()
         {
+            if (PickUp.heldItem != null && PickUp.heldItem.disableJumpingWhenHeld)
+                return;
+
             // trigger jump behaviour
             jumpCounter = jumpTimer;
             isJumping = true;

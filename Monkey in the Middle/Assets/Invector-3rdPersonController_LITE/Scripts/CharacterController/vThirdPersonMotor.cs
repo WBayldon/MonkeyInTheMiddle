@@ -177,6 +177,12 @@ namespace Invector.vCharacterController
             if (_direction.magnitude > 1f)
                 _direction.Normalize();
 
+            // reduce player speed based on held item
+            if (PickUp.heldItem != null && PickUp.heldItem.reduceSpeedWhenHeld != 1)
+            {
+                moveSpeed *= PickUp.heldItem.reduceSpeedWhenHeld;
+            }
+
             Vector3 targetPosition = (useRootMotion ? animator.rootPosition : _rigidbody.position) + _direction * (stopMove ? 0 : moveSpeed) * Time.deltaTime;
             Vector3 targetVelocity = (targetPosition - transform.position) / Time.deltaTime;
 

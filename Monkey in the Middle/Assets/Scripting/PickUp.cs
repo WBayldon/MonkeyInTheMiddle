@@ -5,13 +5,17 @@ public class PickUp : MonoBehaviour
     [SerializeField] Transform holdAt;
     [SerializeField] float holdSpeed;
     [SerializeField] Transform holding;
-    LayerMask mask;
+    // held item is static so it can be read in the character controller
+    public static Holdable heldItem;
+    public Holdable ITEM;
+    private LayerMask mask;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         mask = LayerMask.GetMask("Interactable");
         holding = null;
+        heldItem = null;
     }
 
     // Update is called once per frame
@@ -26,6 +30,8 @@ public class PickUp : MonoBehaviour
             else
                 Grab();
         }
+
+        ITEM = heldItem;
     }
 
     void Grab()
@@ -36,7 +42,17 @@ public class PickUp : MonoBehaviour
         if (hitColliders.Length > 0)
         {
             holding = hitColliders[0].transform;
-            holding.position = holdAt.position; 
+
+            if (!holding.TryGetComponent(out heldItem))
+            {
+                heldItem = null;
+            }
+
+            if (heldItem != null) // + Vector3.up since the capsule is offset from the player object
+                holding.position = transform.position + transform.forward * heldItem.holdDistance + Vector3.up / 2;
+            else
+                holding.position = holdAt.position;
+
 
             // keep the object slightly off the ground
             holding.Translate(Vector3.up * 0.05f);
@@ -48,7 +64,7 @@ public class PickUp : MonoBehaviour
             FixedJoint holdJoint = holding.gameObject.AddComponent<FixedJoint>();
             // the character pivots around the center of mass when connected with a joint,
             // so reduce the held items mass so it doesn't affect the center of mass as much
-            holdJoint.connectedMassScale = 0.1f;
+            holdJoint.connectedMassScale = 0.1f / holding.GetComponent<Rigidbody>().mass;
             holdJoint.connectedBody = GetComponent<Rigidbody>();
         }
     }
@@ -59,6 +75,7 @@ public class PickUp : MonoBehaviour
 
         Destroy(holding.gameObject.GetComponent<FixedJoint>());
         holding = null;
+        heldItem = null;
     }
 
 }
