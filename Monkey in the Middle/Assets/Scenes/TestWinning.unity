@@ -1149,9 +1149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17b388071826c484cb4612ed24dd799b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  panel: {fileID: 884831115}
-  nextLevel: TrampolineIntro
-  nextLevelDelay: 2.5
 --- !u!1 &1054339133
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,6 +1900,14 @@ PrefabInstance:
     - target: {fileID: 3134931727734061051, guid: 41877c174c2a3a6438745ffff12abfdd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281610138469586181, guid: 41877c174c2a3a6438745ffff12abfdd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764991242385985107, guid: 41877c174c2a3a6438745ffff12abfdd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
