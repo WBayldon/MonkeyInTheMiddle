@@ -84,3 +84,7 @@
     height: 70px;
     border-radius: 35px;
 }
+
+.button:disabled {
+    opacity: 0.4;
+}

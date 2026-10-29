@@ -8,13 +8,15 @@ public class PauseMenuView : MonoBehaviour
 {
     private VisualElement root;
     private GameStateMachine machine;
-    private VisualElement background, mainPausePanel, levelSelectPanel;
+    private VisualElement background, mainPausePanel, levelSelectPanel, winPanel;
     private VisualElement shown;
     private bool animating;
+    private bool levelSelectFromWin;
     private IVisualElementScheduledItem swapTick;
 
     private Button resumeButton, unstuckButton, levelSelectButton, quitButton;
     private Button level1Button, level2Button, level3Button, backButton;
+    private Button winRestartButton, winNextLevelButton, winLevelSelectButton, winQuitButton;
 
     private const int FadeMs = 250;
     private const int SwapMs = 900;
@@ -40,16 +42,24 @@ public class PauseMenuView : MonoBehaviour
 
         mainPausePanel = root.Q<VisualElement>("MainPause");
         levelSelectPanel = root.Q<VisualElement>("LevelSelect");
+        winPanel = root.Q<VisualElement>("Win");
 
-        resumeButton = root.Q<Button>("ResumeButton");
-        unstuckButton = root.Q<Button>("UnstuckButton");
-        levelSelectButton = root.Q<Button>("LevelSelectButton");
-        quitButton = root.Q<Button>("QuitGameButton");
+        resumeButton = mainPausePanel.Q<Button>("ResumeButton");
+        unstuckButton = mainPausePanel.Q<Button>("UnstuckButton");
+        levelSelectButton = mainPausePanel.Q<Button>("LevelSelectButton");
+        quitButton = mainPausePanel.Q<Button>("QuitGameButton");
 
-        level1Button = root.Q<Button>("Level1Button");
-        level2Button = root.Q<Button>("Level2Button");
-        level3Button = root.Q<Button>("Level3Button");
-        backButton = root.Q<Button>("BackButton");
+        level1Button = levelSelectPanel.Q<Button>("Level1Button");
+        level2Button = levelSelectPanel.Q<Button>("Level2Button");
+        level3Button = levelSelectPanel.Q<Button>("Level3Button");
+        backButton = levelSelectPanel.Q<Button>("BackButton");
+
+        winRestartButton = winPanel.Q<Button>("UnstuckButton");
+        winNextLevelButton = winPanel.Q<Button>("NextLevelButton");
+        winLevelSelectButton = winPanel.Q<Button>("LevelSelectButton");
+        winQuitButton = winPanel.Q<Button>("QuitGameButton");
+
+        winNextLevelButton.SetEnabled(GetNextLevelName() != null);
 
         resumeButton.clicked += OnResumeClicked;
         unstuckButton.clicked += OnUnstuckClicked;
@@ -61,12 +71,18 @@ public class PauseMenuView : MonoBehaviour
         level3Button.clicked += OnLevel3Clicked;
         backButton.clicked += OnBackClicked;
 
+        winRestartButton.clicked += OnWinRestartClicked;
+        winNextLevelButton.clicked += OnWinNextLevelClicked;
+        winLevelSelectButton.clicked += OnWinLevelSelectClicked;
+        winQuitButton.clicked += OnQuitClicked;
+
         // Renders the pause menu invisibly to prevent lag when opening it the first time
         SetAnimating(true);
         root.AddToClassList("closed");
         background.style.display = DisplayStyle.Flex;
         mainPausePanel.style.display = DisplayStyle.Flex;
         levelSelectPanel.style.display = DisplayStyle.Flex;
+        winPanel.style.display = DisplayStyle.Flex;
         root.schedule.Execute(HideAll).ExecuteLater(100);
     }
 
@@ -85,6 +101,11 @@ public class PauseMenuView : MonoBehaviour
             level2Button.clicked -= OnLevel2Clicked;
             level3Button.clicked -= OnLevel3Clicked;
             backButton.clicked -= OnBackClicked;
+
+            winRestartButton.clicked -= OnWinRestartClicked;
+            winNextLevelButton.clicked -= OnWinNextLevelClicked;
+            winLevelSelectButton.clicked -= OnWinLevelSelectClicked;
+            winQuitButton.clicked -= OnQuitClicked;
         }
     }
 
@@ -98,12 +119,14 @@ public class PauseMenuView : MonoBehaviour
         switch (machine.Current)
         {
             case GameState.Playing:
-                OpenMenu();
+                OpenMenu(mainPausePanel);
                 break;
 
             case GameState.Paused:
-                if (shown == levelSelectPanel)
-                    ShowPanel(mainPausePanel, levelSelectPanel);
+                if (shown == winPanel) 
+                    break;
+                else if (shown == levelSelectPanel)
+                    ShowPanel(levelSelectFromWin ? winPanel : mainPausePanel, levelSelectPanel);
                 else
                     CloseMenu();
                 break;
@@ -113,22 +136,43 @@ public class PauseMenuView : MonoBehaviour
     // Main Pause
     private void OnResumeClicked() { if (!animating) CloseMenu(); }
     private void OnUnstuckClicked() { if (!animating) Unstuck(machine.Current); }
-    private void OnLevelSelectClicked() { if (!animating) ShowPanel(levelSelectPanel, mainPausePanel); }
+    private void OnLevelSelectClicked() { if (!animating) { levelSelectFromWin = false; ShowPanel(levelSelectPanel, mainPausePanel); } }
     private void OnQuitClicked() { if (!animating) Application.Quit(); }
 
     // Level Select
     private void OnLevel1Clicked() { if (!animating) LoadLevel(Level1SceneName); }
     private void OnLevel2Clicked() { if (!animating) LoadLevel(Level2SceneName); }
     private void OnLevel3Clicked() { if (!animating) LoadLevel(Level3SceneName); }
-    private void OnBackClicked() { if (!animating) ShowPanel(mainPausePanel, levelSelectPanel); }
+    private void OnBackClicked()
+    {
+        if (animating) return;
+        ShowPanel(levelSelectFromWin ? winPanel : mainPausePanel, levelSelectPanel);
+    }
 
-    private void OpenMenu()
+    // Win
+    private void OnWinRestartClicked() { if (!animating) Unstuck(machine.Current); }
+    private void OnWinNextLevelClicked()
+    {
+        if (animating) return;
+
+        string next = GetNextLevelName();
+        if (next != null) LoadLevel(next);
+    }
+    private void OnWinLevelSelectClicked()
+    {
+        if (animating) return;
+        levelSelectFromWin = true;
+        ShowPanel(levelSelectPanel, winPanel);
+    }
+
+    private void OpenMenu(VisualElement panel)
     {
         machine.SetState(GameState.Paused);
 
         SetAnimating(true);
         root.AddToClassList("closed");
-        ShowPanel(mainPausePanel);
+        levelSelectFromWin = false;
+        ShowPanel(panel);
 
         root.schedule.Execute(() => root.RemoveFromClassList("closed")).ExecuteLater(30);
         root.schedule.Execute(() => SetAnimating(false)).ExecuteLater(30 + FadeMs);
@@ -209,12 +253,13 @@ public class PauseMenuView : MonoBehaviour
         ClearShuffle();
         mainPausePanel.style.display = DisplayStyle.None;
         levelSelectPanel.style.display = DisplayStyle.None;
+        winPanel.style.display = DisplayStyle.None;
         background.style.display = DisplayStyle.None;
     }
 
     private void ClearShuffle()
     {
-        foreach (var p in new[] { mainPausePanel, levelSelectPanel })
+        foreach (var p in new[] { mainPausePanel, levelSelectPanel, winPanel })
         {
             p.style.translate = StyleKeyword.Null;
             p.style.scale = StyleKeyword.Null;
@@ -238,5 +283,32 @@ public class PauseMenuView : MonoBehaviour
     private void LoadLevel(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    private string GetNextLevelName()
+    {
+        string current = SceneManager.GetActiveScene().name;
+        string next = null;
+
+        if (current == Level1SceneName) next = Level2SceneName;
+        else if (current == Level2SceneName) next = Level3SceneName;
+
+        if (string.IsNullOrEmpty(next) || !Application.CanStreamedLevelBeLoaded(next))
+            return null;
+
+        return next;
+    }
+
+    /// <summary>
+    /// Opens the win menu
+    /// </summary>
+    public void OpenWinMenu()
+    {
+        SetAnimating(true);
+        root.AddToClassList("closed");
+        OpenMenu(winPanel);
+
+        root.schedule.Execute(() => root.RemoveFromClassList("closed")).ExecuteLater(30);
+        root.schedule.Execute(() => SetAnimating(false)).ExecuteLater(30 + FadeMs);
     }
 }

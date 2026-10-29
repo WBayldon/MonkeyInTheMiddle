@@ -16,5 +16,13 @@
             <ui:Button text="Level 3" name="Level3Button" class="button p-text"/>
             <ui:Button text="Back" name="BackButton" class="button p-text"/>
         </ui:VisualElement>
+        <ui:VisualElement name="Win" class="panel" style="display: flex;">
+            <ui:Label text="You Win!" name="MenuName" class="p-text"/>
+            <ui:Button text="Restart" name="UnstuckButton" class="button p-text"/>
+            <ui:Button text="Next Level" name="NextLevelButton" class="button p-text"/>
+            <ui:Button text="Level Select" name="LevelSelectButton" class="button p-text"/>
+            <ui:Button text="Quit" name="QuitGameButton" class="button p-text">
+            </ui:Button>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
