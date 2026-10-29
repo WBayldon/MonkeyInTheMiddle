@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cf9cddac4f211e44bf2ef796fc9d38d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenuView
-  Level1SceneName: TestWinning
+  Level1SceneName: Level1Refined
   Level2SceneName: TrampolineIntro
   Level3SceneName: RemoteSwitchIntro
 --- !u!1 &2407180765173681479
@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuView
   onlyOncePerSession: 1
+  containerName: Root
 --- !u!1 &2715808648911108652
 GameObject:
   m_ObjectHideFlags: 0
