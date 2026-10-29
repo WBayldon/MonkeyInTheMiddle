@@ -1,9 +1,11 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Assets/UIAssets/CoreStylesheet.uss?fileID=7433441132597879392&amp;guid=710adb9821848764f8d4efdc7e75314f&amp;type=3#CoreStylesheet"/>
     <ui:VisualElement name="Root" class="centered">
-        <ui:VisualElement name="MainMenu" class="panel" style="padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; flex-grow: 0; width: auto; height: auto;">
+        <ui:VisualElement name="MainMenu" class="panel" style="padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; flex-grow: 0; width: auto; height: auto; max-width: 90%;">
             <ui:Label text="Monkey in the Middle" name="GameName" class="p-text" style="font-size: 40px;"/>
-            <ui:Label text="A game by Leo &amp; the A Team" name="Credits" class="p-text" style="font-size: 20px;"/>
+            <ui:Label text="A game by Leo &amp; the A Team" name="Credits" class="p-text" style="font-size: 15px;"/>
+            <ui:Label text="Controls: &#10;WASD - Movement&#10;Space - Jump&#10;Left Click - Grab/Drop" name="ControlInstructions" class="p-text" style="font-size: 25px; margin-top: 40px;"/>
+            <ui:Label text="Your goal is to escape the enclosure,&#10;by any means necessary" name="GoalInstructions" class="p-text" style="font-size: 25px; margin-top: 40px;"/>
             <ui:Label text="Press any key to start" name="Instructions" class="p-text" style="font-size: 30px; margin-top: 40px;"/>
         </ui:VisualElement>
     </ui:VisualElement>
