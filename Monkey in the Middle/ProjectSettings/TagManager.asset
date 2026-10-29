@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - Ground
+  - Crate
   layers:
   - Default
   - TransparentFX

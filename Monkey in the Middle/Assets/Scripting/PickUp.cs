@@ -3,67 +3,79 @@ using UnityEngine.InputSystem;
 public class PickUp : MonoBehaviour
 {
     [SerializeField] Transform holdAt;
-    private Vector3 ogPos;
     [SerializeField] float holdSpeed;
-    private float holdMass = 1;
     [SerializeField] Transform holding;
-    LayerMask mask;
-    Vector3 holdForceDir;
-    float clampedSpeed;
+    // held item is static so it can be read in the character controller
+    public static Holdable heldItem;
+    public Holdable ITEM;
+    private LayerMask mask;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         mask = LayerMask.GetMask("Interactable");
-        ogPos = holdAt.position;
-        if(holding != null){
-            holdMass = holding.GetComponent<Rigidbody>().mass;
-            //holding.GetComponent<Rigidbody>().mass = 0.1f;
-        }
+        holding = null;
+        heldItem = null;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (GameStateMachine.Instance.Current == GameState.Paused) return;
+
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            if(holding != null) Letgo();
-            else{
-            Grab();
-            }
+            if (holding != null) 
+                Letgo();
+            else
+                Grab();
         }
-        float step = holdSpeed * Time.deltaTime;
-        if(holding != null){
-            //holding.position = Vector3.MoveTowards(holding.position, holdAt.position, step);
-            holdForceDir = Vector3.Normalize(holdAt.position - holding.position);
-            if(0.2 < (Vector3.Distance(holdAt.position, holding.position))){
-                holding.GetComponent<Rigidbody>().AddForce(holdForceDir * holdSpeed);
+
+        ITEM = heldItem;
+    }
+
+    void Grab()
+    {
+        //Debug.Log("Grab called.");
+
+        Collider[] hitColliders = Physics.OverlapSphere(holdAt.position, holdAt.GetComponent<Collider>().bounds.size.x / 2, mask);
+        if (hitColliders.Length > 0)
+        {
+            holding = hitColliders[0].transform;
+
+            if (!holding.TryGetComponent(out heldItem))
+            {
+                heldItem = null;
             }
-            
-            holding.eulerAngles = this.transform.eulerAngles;
+
+            if (heldItem != null) // + Vector3.up since the capsule is offset from the player object
+                holding.position = transform.position + transform.forward * heldItem.holdDistance + Vector3.up / 2;
+            else
+                holding.position = holdAt.position;
+
+
+            // keep the object slightly off the ground
+            holding.Translate(Vector3.up * 0.05f);
+
+            // a cube object rotated around any axis other than y changes vertical bounds which causes bad behavior
+            // this can be fixed but doesn't really need to be now
+            holding.rotation = Quaternion.Euler(Vector3.Scale(holding.rotation.eulerAngles, Vector3.up));
+
+            FixedJoint holdJoint = holding.gameObject.AddComponent<FixedJoint>();
+            // the character pivots around the center of mass when connected with a joint,
+            // so reduce the held items mass so it doesn't affect the center of mass as much
+            holdJoint.connectedMassScale = 0.1f / holding.GetComponent<Rigidbody>().mass;
+            holdJoint.connectedBody = GetComponent<Rigidbody>();
         }
     }
 
-    void Grab(){
-        Debug.Log("Grab called.");
-        Collider[] hitColliders = Physics.OverlapSphere(holdAt.position, holdAt.GetComponent<Collider>().bounds.size.x /2, mask);
-        holding = hitColliders[0].transform;
-        holdMass = holding.GetComponent<Rigidbody>().mass;
-        holding.SetParent(this.transform);
-        holding.GetComponent<Collider>().excludeLayers = LayerMask.GetMask("Player");
-        holding.GetComponent<Rigidbody>().excludeLayers = LayerMask.GetMask("Player");
-        //holding.GetComponent<Rigidbody>().mass = 0.1f;
-    }
     void Letgo()
     {
-        Debug.Log("Letgo called.");
-        //holdAt.position = ogPos;
-        holding.GetComponent<Rigidbody>().mass = holdMass;
-      holding.SetParent(null);
-      holding.GetComponent<Collider>().includeLayers = LayerMask.GetMask("Player");
-        holding.GetComponent<Rigidbody>().includeLayers = LayerMask.GetMask("Player");
+        //Debug.Log("Letgo called.");
+
+        Destroy(holding.gameObject.GetComponent<FixedJoint>());
         holding = null;
-        
+        heldItem = null;
     }
 
 }
