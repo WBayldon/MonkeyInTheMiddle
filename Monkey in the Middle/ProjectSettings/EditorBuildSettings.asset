@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/TestWinning.unity
     guid: 883232a189e4fe5498fd01b0ce25681f
   - enabled: 1
+    path: Assets/Scenes/Level1Refined.unity
+    guid: f1216020df9ee364b86800e85472060c
+  - enabled: 1
     path: Assets/Scenes/TrampolineIntro.unity
     guid: 09cbdc18e771b984fa745053b42cfdbd
   - enabled: 1
