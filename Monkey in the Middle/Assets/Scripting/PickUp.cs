@@ -41,7 +41,7 @@ public class PickUp : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(holdAt.position, holdAt.GetComponent<Collider>().bounds.size.x / 2, mask);
         if (hitColliders.Length > 0)
         {
-            // this can potentially be a child collider, so we need the position of the rigidbody instead
+            // this can potentially be a child collider, so we want the position of the rigidbody instead
             if (hitColliders[0].attachedRigidbody != null)
                 holding = hitColliders[0].attachedRigidbody.transform;
             else
