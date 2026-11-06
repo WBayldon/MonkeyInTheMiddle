@@ -23,15 +23,18 @@ public class PickUp : MonoBehaviour
     {
         if (GameStateMachine.Instance.Current == GameState.Paused) return;
 
-        if (Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            if (holding != null) 
-                Letgo();
-            else
-                Grab();
-        }
-
         ITEM = heldItem;
+    }
+
+    // This uses player input actions so we can have multiple bindings easier
+    void OnGrab()
+    {
+        if (GameStateMachine.Instance.Current == GameState.Paused) return;
+
+        if (holding != null)
+            Letgo();
+        else
+            Grab();
     }
 
     void Grab()
