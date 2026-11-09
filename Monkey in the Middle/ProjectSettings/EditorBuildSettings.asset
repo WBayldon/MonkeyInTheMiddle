@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TestTrampoline.unity
     guid: 3b43b66c91c51754c84771251bc85104
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestWinning.unity
     guid: 883232a189e4fe5498fd01b0ce25681f
   - enabled: 1
