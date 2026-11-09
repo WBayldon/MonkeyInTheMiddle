@@ -71,6 +71,13 @@ public class GameStateMachine : MonoBehaviour
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 break;
+
+            case GameState.MainMenu:
+                Time.timeScale = 0f;
+                AudioListener.pause = true;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Locked;
+                break;
         }
     }
 }

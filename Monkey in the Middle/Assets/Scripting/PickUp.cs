@@ -23,15 +23,18 @@ public class PickUp : MonoBehaviour
     {
         if (GameStateMachine.Instance.Current == GameState.Paused) return;
 
-        if (Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            if (holding != null) 
-                Letgo();
-            else
-                Grab();
-        }
-
         ITEM = heldItem;
+    }
+
+    // This uses player input actions so we can have multiple bindings easier
+    void OnGrab()
+    {
+        if (GameStateMachine.Instance.Current == GameState.Paused) return;
+
+        if (holding != null)
+            Letgo();
+        else
+            Grab();
     }
 
     void Grab()
@@ -41,7 +44,11 @@ public class PickUp : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(holdAt.position, holdAt.GetComponent<Collider>().bounds.size.x / 2, mask);
         if (hitColliders.Length > 0)
         {
-            holding = hitColliders[0].transform;
+            // this can potentially be a child collider, so we want the position of the rigidbody instead
+            if (hitColliders[0].attachedRigidbody != null)
+                holding = hitColliders[0].attachedRigidbody.transform;
+            else
+                holding = hitColliders[0].transform;
 
             if (!holding.TryGetComponent(out heldItem))
             {

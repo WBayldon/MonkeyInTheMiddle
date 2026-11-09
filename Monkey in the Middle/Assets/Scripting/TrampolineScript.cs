@@ -1,6 +1,7 @@
 using StarterAssets;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class TrampolineScript : MonoBehaviour
 {
     public float trampolineSpeed;
@@ -27,4 +28,3 @@ public class TrampolineScript : MonoBehaviour
         }
     }
 }
-
