@@ -9,6 +9,7 @@ public class PickUp : MonoBehaviour
     public static Holdable heldItem;
     public Holdable ITEM;
     private LayerMask mask;
+    public LayerMask grabBlockingLayers;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,35 +45,44 @@ public class PickUp : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(holdAt.position, holdAt.GetComponent<Collider>().bounds.size.x / 2, mask);
         if (hitColliders.Length > 0)
         {
+            Collider col = hitColliders[0];
+            bool validCollider = false;
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                col = hitColliders[i];
+
+                Vector3 playerCenter = transform.position + Vector3.up / 2;
+                Vector3 direction = col.transform.position - playerCenter;
+                if (!Physics.Raycast(playerCenter, direction, direction.magnitude + 0.01f, grabBlockingLayers))
+                {
+                    validCollider = true;
+                    break;
+                }
+            }
+
+            if (!validCollider)
+                return;
+
             // this can potentially be a child collider, so we want the position of the rigidbody instead
-            if (hitColliders[0].attachedRigidbody != null)
-                holding = hitColliders[0].attachedRigidbody.transform;
+            if (col.attachedRigidbody != null)
+                holding = col.attachedRigidbody.transform;
             else
-                holding = hitColliders[0].transform;
+                holding = col.transform;
 
             if (!holding.TryGetComponent(out heldItem))
             {
                 heldItem = null;
             }
 
-            float lowestPoint = hitColliders[0].bounds.min.y;
-            float lowestDif = hitColliders[0].transform.position.y - lowestPoint;
+            float lowestPoint = col.bounds.min.y;
+            float lowestDif = col.transform.position.y - lowestPoint;
 
             if (heldItem != null) // + Vector3.up since the capsule is offset from the player object
-                holding.position = transform.position + transform.forward * heldItem.holdDistance + Vector3.up * heldItem.holdHeight; // + Vector3.up / 2
+                holding.position = transform.position + transform.forward * heldItem.holdDistance + Vector3.up * heldItem.holdHeight; 
             else
                 holding.position = holdAt.position;
 
-            //holding.Translate(Vector3.up * lowestDif);
             holding.transform.position += Vector3.up * lowestDif;
-
-            // keep the object slightly off the ground
-            //holding.transform.position = 
-            //holding.Translate(Vector3.up * heldItem.holdHeight);
-
-            // a cube object rotated around any axis other than y changes vertical bounds which causes bad behavior
-            // this can be fixed but doesn't really need to be now
-            //holding.rotation = Quaternion.Euler(Vector3.Scale(holding.rotation.eulerAngles, Vector3.up));
 
             FixedJoint holdJoint = holding.gameObject.AddComponent<FixedJoint>();
             // the character pivots around the center of mass when connected with a joint,
