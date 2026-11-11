@@ -156,3 +156,4 @@ MonoBehaviour:
   disableJumpingWhenHeld: 0
   reduceSpeedWhenHeld: 1
   holdDistance: 1
+  holdHeight: 0.1

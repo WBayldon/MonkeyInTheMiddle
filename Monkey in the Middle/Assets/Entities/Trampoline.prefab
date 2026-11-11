@@ -184,6 +184,7 @@ MonoBehaviour:
   disableJumpingWhenHeld: 1
   reduceSpeedWhenHeld: 0.8
   holdDistance: 1.5
+  holdHeight: -0.075
 --- !u!1 &4197084880976475879
 GameObject:
   m_ObjectHideFlags: 0

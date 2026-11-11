@@ -55,18 +55,24 @@ public class PickUp : MonoBehaviour
                 heldItem = null;
             }
 
+            float lowestPoint = hitColliders[0].bounds.min.y;
+            float lowestDif = hitColliders[0].transform.position.y - lowestPoint;
+
             if (heldItem != null) // + Vector3.up since the capsule is offset from the player object
-                holding.position = transform.position + transform.forward * heldItem.holdDistance + Vector3.up / 2;
+                holding.position = transform.position + transform.forward * heldItem.holdDistance + Vector3.up * heldItem.holdHeight; // + Vector3.up / 2
             else
                 holding.position = holdAt.position;
 
+            //holding.Translate(Vector3.up * lowestDif);
+            holding.transform.position += Vector3.up * lowestDif;
 
             // keep the object slightly off the ground
-            holding.Translate(Vector3.up * 0.05f);
+            //holding.transform.position = 
+            //holding.Translate(Vector3.up * heldItem.holdHeight);
 
             // a cube object rotated around any axis other than y changes vertical bounds which causes bad behavior
             // this can be fixed but doesn't really need to be now
-            holding.rotation = Quaternion.Euler(Vector3.Scale(holding.rotation.eulerAngles, Vector3.up));
+            //holding.rotation = Quaternion.Euler(Vector3.Scale(holding.rotation.eulerAngles, Vector3.up));
 
             FixedJoint holdJoint = holding.gameObject.AddComponent<FixedJoint>();
             // the character pivots around the center of mass when connected with a joint,
