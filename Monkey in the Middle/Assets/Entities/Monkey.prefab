@@ -218,7 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   holdAt: {fileID: 8640868984605294971}
   holdSpeed: 20
-  baseGrabDistance: 0.25
+  baseHoldDistance: 0.2
   holding: {fileID: 0}
   ITEM: {fileID: 0}
   grabBlockingLayers:

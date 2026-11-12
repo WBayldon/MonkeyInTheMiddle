@@ -1372,7 +1372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6650591893417123149, guid: 32f807c48f8e36b44971fb0277d7b2ee, type: 3}
       propertyPath: holdHeight
-      value: -0.1125
+      value: -0.2325
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2371,6 +2371,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 490718160511975756, guid: 3b80f5dbeb4fccc46bd1d4642a70d8b1, type: 3}
+      propertyPath: holdDistance
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 3546954975855623655, guid: 3b80f5dbeb4fccc46bd1d4642a70d8b1, type: 3}
       propertyPath: m_Name
       value: Crate (1)

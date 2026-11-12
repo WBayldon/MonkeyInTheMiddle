@@ -183,7 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Holdable
   disableJumpingWhenHeld: 1
   reduceSpeedWhenHeld: 0.8
-  holdDistance: 1.5
+  holdDistance: 1.7
   holdHeight: -0.075
 --- !u!1 &4197084880976475879
 GameObject:

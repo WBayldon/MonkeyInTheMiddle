@@ -856,6 +856,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 490718160511975756, guid: 3b80f5dbeb4fccc46bd1d4642a70d8b1, type: 3}
+      propertyPath: holdDistance
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 3546954975855623655, guid: 3b80f5dbeb4fccc46bd1d4642a70d8b1, type: 3}
       propertyPath: m_Name
       value: Crate (1)
