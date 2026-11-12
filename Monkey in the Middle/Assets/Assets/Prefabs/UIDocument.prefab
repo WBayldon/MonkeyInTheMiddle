@@ -68,9 +68,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cf9cddac4f211e44bf2ef796fc9d38d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenuView
-  Level1SceneName: Level1Refined
-  Level2SceneName: TrampolineIntro
-  Level3SceneName: RemoteSwitchIntro
+  levels: {fileID: 2654842809237103108}
+  mainMenu: {fileID: 7225425373703036192}
 --- !u!1 &2407180765173681479
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +140,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuView
   onlyOncePerSession: 1
   containerName: Root
+  levels: {fileID: 2654842809237103108}
+  onSettings:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2715808648911108652
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3134931727734061051}
+  - component: {fileID: 2654842809237103108}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -174,3 +178,24 @@ Transform:
   - {fileID: 7533974064875450825}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2654842809237103108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2715808648911108652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd999021645c3b4d86a0374492e53f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelList
+  sceneNames:
+  - Level1Refined
+  - 
+  - TrampolineIntro
+  - ClimbingIntro
+  - 
+  - LevelBasicOpenArea
+  - RemoteSwitchIntro
+  - 
