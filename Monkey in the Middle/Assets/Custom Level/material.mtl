@@ -1,0 +1,18 @@
+newmtl beach_tileset
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Tr 0.000000
+illum 0
+Ns 0.000000
+map_Kd beach_beach_tileset.png
+map_d beach_beach_tileset.png
+newmtl tf_darkdimension_sheet
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Tr 0.000000
+illum 0
+Ns 0.000000
+map_Kd beach_tf_darkdimension_sheet.png
+map_d beach_tf_darkdimension_sheet.png
