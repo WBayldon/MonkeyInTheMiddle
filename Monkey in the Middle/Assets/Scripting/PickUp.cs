@@ -4,6 +4,8 @@ public class PickUp : MonoBehaviour
 {
     [SerializeField] Transform holdAt;
     [SerializeField] float holdSpeed;
+    [Tooltip("This is in addition to the distance of the held item itself")]
+    [SerializeField] float baseHoldDistance;
     [SerializeField] Transform holding;
     // held item is static so it can be read in the character controller
     public static Holdable heldItem;
@@ -78,7 +80,7 @@ public class PickUp : MonoBehaviour
             float lowestDif = col.transform.position.y - lowestPoint;
 
             if (heldItem != null) // + Vector3.up since the capsule is offset from the player object
-                holding.position = transform.position + transform.forward * heldItem.holdDistance + Vector3.up * heldItem.holdHeight; 
+                holding.position = transform.position + transform.forward * (heldItem.holdDistance + baseHoldDistance) + Vector3.up * heldItem.holdHeight; 
             else
                 holding.position = holdAt.position;
 
