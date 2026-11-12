@@ -79,8 +79,13 @@ public class PickUp : MonoBehaviour
             float lowestPoint = col.bounds.min.y;
             float lowestDif = col.transform.position.y - lowestPoint;
 
+            Vector3 objectOffset = col.transform.position - col.bounds.center;
+
             if (heldItem != null) // + Vector3.up since the capsule is offset from the player object
-                holding.position = transform.position + transform.forward * (heldItem.holdDistance + baseHoldDistance) + Vector3.up * heldItem.holdHeight; 
+            {
+                holding.position = transform.position + transform.forward * (heldItem.holdDistance + baseHoldDistance) + Vector3.up * heldItem.holdHeight;
+                holding.position += objectOffset;
+            }
             else
                 holding.position = holdAt.position;
 
