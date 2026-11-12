@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c386bc843a4c7fc43b00e2fcd2c5381f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 1894
+  packageName: Amplify Color
+  packageVersion: 1.9.0
+  assetPath: Assets/AmplifyColor/Plugins/Editor/StartScreen.cs
+  uploadId: 687712

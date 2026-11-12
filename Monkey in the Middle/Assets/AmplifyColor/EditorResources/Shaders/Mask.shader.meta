@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: ed6c30a513efa1e49af4a791bd4675b7
+AssetOrigin:
+  serializedVersion: 1
+  productId: 1894
+  packageName: Amplify Color
+  packageVersion: 1.9.0
+  assetPath: Assets/AmplifyColor/EditorResources/Shaders/Mask.shader
+  uploadId: 687712
