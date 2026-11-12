@@ -9,4 +9,6 @@ public class Holdable : MonoBehaviour
     public float reduceSpeedWhenHeld = 1f;
     [Tooltip("How far away the player should hold this item")]
     public float holdDistance = 1.5f;
+    [Tooltip("How high off the ground the player should hold this item")]
+    public float holdHeight = 0.05f;
 }
