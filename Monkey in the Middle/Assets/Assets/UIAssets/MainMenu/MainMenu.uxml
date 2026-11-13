@@ -4,7 +4,7 @@
         <ui:VisualElement name="MainMenu" class="panel centered" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; flex-grow: 0; width: 100%; height: 100%; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; background-color: rgb(233, 233, 233); display: flex; top: 0%; left: 0%; justify-content: flex-start;">
             <ui:VisualElement name="BottomHolder" style="flex-grow: 1; bottom: 0%; position: absolute;">
                 <ui:Label text="Your goal is to escape the enclosure,&#10;by any means necessary" name="GoalInstructions" class="p-text" style="font-size: 25px; margin-top: 40px;"/>
-                <ui:Label text="Controls: &#10;WASD - Movement&#10;Space - Jump&#10;Left Shift (Hold) - Strafe&#10;Left Click - Grab/Drop" name="ControlInstructions" class="p-text" style="font-size: 25px; margin-top: 2px;"/>
+                <ui:Label text="Controls: &#10;WASD - Movement&#10;Space - Jump&#10;Left Shift (Hold) - Strafe&#10;Left Click / E - Grab/Drop" name="ControlInstructions" class="p-text" style="font-size: 25px; margin-top: 2px;"/>
             </ui:VisualElement>
             <ui:VisualElement name="TopHolder" style="flex-grow: 1; align-items: center;">
                 <ui:Label text="Monkey in the Middle" name="GameName" class="p-text" style="font-size: 40px; margin-bottom: 0; padding-bottom: 0;"/>
@@ -20,7 +20,7 @@
                 <ui:Button text="Credits" name="CreditsButton" enabled="false" class="button p-text locked"/>
                 <ui:Button text="Quit Game" name="QuitGameButton" class="button p-text"/>
             </ui:VisualElement>
-            <ui:VisualElement name="LevelSelect" class="panel centered" style="top: auto; left: 0; bottom: 1px; border-bottom-left-radius: 0; align-items: flex-start; display: none;">
+            <ui:VisualElement name="LevelSelect" class="panel centered" style="top: auto; left: 0; bottom: 0; border-bottom-left-radius: 0; align-items: flex-start; display: none;">
                 <ui:Label text="Level Select" name="MenuName" class="p-text" style="align-self: center;"/>
                 <ui:Button text="Level 1" name="Level1Button" class="button p-text"/>
                 <ui:Button text="Level 2" name="Level2Button" class="button p-text"/>
@@ -31,6 +31,43 @@
                 <ui:Button text="Level 7" name="Level7Button" class="button p-text"/>
                 <ui:Button text="Level 8" name="Level8Button" class="button p-text"/>
                 <ui:Button text="Back" name="BackButton" class="button p-text"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Settings" class="panel centered" style="top: auto; left: auto; bottom: 0; border-bottom-left-radius: 0; align-items: flex-end; display: none; right: 0; padding-right: 0;">
+                <ui:Label text="Settings" name="MenuName" class="p-text" style="align-self: center;"/>
+                <ui:VisualElement name="Topbar" style="flex-grow: 1; white-space: normal; align-items: stretch; flex-wrap: nowrap; flex-direction: row; padding-right: 0; margin-right: 10px;">
+                    <ui:Button text="Game" name="GameButton" class="button p-text" style="margin-right: 5px;"/>
+                    <ui:Button text="Graphics" name="GraphicsButton" class="button p-text" style="margin-right: 5px;"/>
+                    <ui:Button text="Audio" name="AudioButton" class="button p-text" style="margin-right: 5px;"/>
+                    <ui:Button text="Controls" name="ControlsButton" class="button p-text"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="SplitHR" style="flex-grow: 0; white-space: normal; align-items: center; flex-wrap: nowrap; flex-direction: column; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 90%; height: 2px; margin-bottom: 10px; flex-shrink: 0; background-color: rgb(0, 0, 0); margin-right: 0; margin-left: 0; align-content: center; justify-content: center; align-self: center; margin-top: 0;"/>
+                <ui:VisualElement name="SubSettings" class="panel" style="flex-grow: 1; border-bottom-right-radius: 0; border-top-right-radius: 0; position: relative; right: 0; background-color: rgb(109, 109, 109); left: 0; width: 100%; margin-left: 10px; margin-bottom: 10px;">
+                    <ui:VisualElement name="Setting1" style="flex-grow: 1; flex-direction: row; margin-bottom: 10px; justify-content: space-between; align-items: center; align-content: auto; width: 100%;">
+                        <ui:Label text="Setting 1" name="MenuName" class="p-text" style="align-self: center;"/>
+                        <ui:VisualElement name="Spacer" style="flex-grow: 0; margin-right: 0; margin-left: 0; width: 70px; margin-top: 0; margin-bottom: 0;"/>
+                        <ui:Button text="Toggle Setting 1" name="SettingToggleBUtton" class="button p-text" style="margin-bottom: 0;"/>
+                        <ui:VisualElement name="Spacer" style="flex-grow: 0; margin-right: 0; margin-left: 0; width: 70px; margin-top: 0; margin-bottom: 0;"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Setting2" style="flex-grow: 1; flex-direction: row; margin-bottom: 10px; width: 100%; justify-content: space-between;">
+                        <ui:Label text="Setting 2" name="MenuName" class="p-text" style="align-self: center;"/>
+                        <ui:VisualElement name="Spacer" style="flex-grow: 0; margin-right: 0; margin-left: 0; width: 70px; margin-top: 0; margin-bottom: 0;"/>
+                        <ui:Button text="Toggle Setting 2" name="SettingToggleButton" class="button p-text" style="margin-bottom: 0;"/>
+                        <ui:VisualElement name="Spacer" style="flex-grow: 0; margin-right: 0; margin-left: 0; width: 70px; margin-top: 0; margin-bottom: 0;"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Setting3" style="flex-grow: 1; flex-direction: row; margin-bottom: 10px; width: 100%; justify-content: space-between;">
+                        <ui:Label text="Setting 3" name="MenuName" class="p-text" style="align-self: center;"/>
+                        <ui:VisualElement name="Spacer" style="flex-grow: 0; margin-right: 0; margin-left: 0; width: 70px; margin-top: 0; margin-bottom: 0;"/>
+                        <ui:Button text="Toggle Setting 3" name="SettingToggleButton" class="button p-text" style="margin-bottom: 0;"/>
+                        <ui:VisualElement name="Spacer" style="flex-grow: 0; margin-right: 0; margin-left: 0; width: 70px; margin-top: 0; margin-bottom: 0;"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Setting4" style="flex-grow: 1; flex-direction: row; margin-bottom: 10px; width: 100%; justify-content: space-between;">
+                        <ui:Label text="Setting 4" name="MenuName" class="p-text" style="align-self: center;"/>
+                        <ui:Button text="&lt;" name="SettingToggleButton" class="button p-text" style="margin-bottom: 0; min-width: 70px; width: auto;"/>
+                        <ui:Button text="Arrow Setting 1" name="SettingToggleButton" class="button p-text" style="margin-bottom: 0;"/>
+                        <ui:Button text="&gt;" name="SettingToggleButton" class="button p-text" style="margin-bottom: 0; width: auto; min-width: 70px;"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Button text="Back" name="BackButton" class="button p-text" style="margin-right: 10px;"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

@@ -848,32 +848,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04bc9494ef0837a40bb732711a843c3a, type: 3}
---- !u!1 &1148598918 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2715808648911108652, guid: 41877c174c2a3a6438745ffff12abfdd, type: 3}
-  m_PrefabInstance: {fileID: 1679811837}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1148598921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1148598918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb244f4bf6c16743b21e221fd0ce800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SyncLevels
-  sceneNames:
-  - Level1Refined
-  - 
-  - TrampolineIntro
-  - ClimbingIntro
-  - 
-  - LevelBasicOpenArea
-  - RemoteSwitchIntro
-  - 
 --- !u!1001 &1305959342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1439,21 +1413,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4764991242385985107, guid: 41877c174c2a3a6438745ffff12abfdd, type: 3}
-      propertyPath: levels
-      value: 
-      objectReference: {fileID: 1148598921}
-    - target: {fileID: 7225425373703036192, guid: 41877c174c2a3a6438745ffff12abfdd, type: 3}
-      propertyPath: levels
-      value: 
-      objectReference: {fileID: 1148598921}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2715808648911108652, guid: 41877c174c2a3a6438745ffff12abfdd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1148598921}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41877c174c2a3a6438745ffff12abfdd, type: 3}
 --- !u!1001 &1742508095
 PrefabInstance:
