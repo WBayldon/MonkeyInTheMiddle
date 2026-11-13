@@ -189,10 +189,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SyncLevels
   sceneNames:
   - Level1Refined
-  - 
+  - StrafeLvl
   - TrampolineIntro
   - ClimbingIntro
-  - 
+  - beachlevel
   - LevelBasicOpenArea
   - RemoteSwitchIntro
-  - 
+  - CircleLevel
