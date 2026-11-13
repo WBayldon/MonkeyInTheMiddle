@@ -9,13 +9,6 @@ public class MainMenuView : MonoBehaviour
 {
     // Remains after scene change, so they don't bring the title screen back
     private static bool shownThisSession;
-
-    [SerializeField] private bool onlyOncePerSession = true;
-    [SerializeField] private string containerName = "MainMenu";
-    [SerializeField] private SyncLevels levels;
-
-    [SerializeField] private UnityEvent onSettings;
-
     private const int FadeMs = 250;
     private const int SlideMs = 500;
 
@@ -27,6 +20,9 @@ public class MainMenuView : MonoBehaviour
     private bool closing, sliding, levelSelectOpen;
 
     private readonly List<(Button button, System.Action handler)> levelBindings = new();
+    [SerializeField] private bool onlyOncePerSession = true;
+    [SerializeField] private string containerName = "MainMenu";
+    [SerializeField] private LevelList levels;
 
     private void OnEnable()
     {
@@ -164,7 +160,7 @@ public class MainMenuView : MonoBehaviour
         SlideLevelSelectIn();
     }
 
-    private void OnSettingsClicked() { if (!closing && !sliding) onSettings?.Invoke(); }
+    private void OnSettingsClicked() { if (!closing && !sliding) { } }
 
     private void OnQuitClicked()
     {

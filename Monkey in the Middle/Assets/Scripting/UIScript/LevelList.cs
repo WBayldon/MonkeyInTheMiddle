@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SyncLevels : MonoBehaviour
+public class LevelList : MonoBehaviour
 {
     [SerializeField] private string[] sceneNames;
 

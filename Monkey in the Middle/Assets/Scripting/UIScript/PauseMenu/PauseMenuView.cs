@@ -26,10 +26,8 @@ public class PauseMenuView : MonoBehaviour
     private static readonly Vector2 BasePercent = new Vector2(0, 0);
     private static readonly Translate RestTranslate = new Translate(new Length(BasePercent.x, LengthUnit.Percent), new Length(BasePercent.y, LengthUnit.Percent));
     private static readonly Scale RestScale = new Scale(new Vector3(1f, 1f, 1f));
-
-    [SerializeField] private SyncLevels levels;
     [SerializeField] private MainMenuView mainMenu;
-
+    [SerializeField] private LevelList levels;
 
     private void OnEnable()
     {
