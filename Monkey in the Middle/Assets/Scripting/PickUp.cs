@@ -7,8 +7,9 @@ public class PickUp : MonoBehaviour
     [Tooltip("This is in addition to the distance of the held item itself")]
     [SerializeField] float baseHoldDistance;
     [SerializeField] Transform holding;
-    // held item is static so it can be read in the character controller
+    // held item and climbing object are static so they can be read in the character controller
     public static Holdable heldItem;
+    public static Collider climbingCollider;
     public Holdable ITEM;
     private LayerMask mask;
     public LayerMask grabBlockingLayers;
@@ -19,6 +20,7 @@ public class PickUp : MonoBehaviour
         mask = LayerMask.GetMask("Interactable");
         holding = null;
         heldItem = null;
+        climbingCollider = null;
     }
 
     // Update is called once per frame
@@ -34,7 +36,7 @@ public class PickUp : MonoBehaviour
     {
         if (GameStateMachine.Instance.Current == GameState.Paused) return;
 
-        if (holding != null)
+        if (holding != null || climbingCollider != null)
             Letgo();
         else
             Grab();
@@ -64,6 +66,18 @@ public class PickUp : MonoBehaviour
 
             if (!validCollider)
                 return;
+
+            // enter climbing state if grabbing climbable object
+            if (col.CompareTag("Climbable"))
+            {
+                climbingCollider = col;
+                Rigidbody rb = GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.useGravity = false;
+                }
+                return;
+            }
 
             // this can potentially be a child collider, so we want the position of the rigidbody instead
             if (col.attachedRigidbody != null)
@@ -102,6 +116,19 @@ public class PickUp : MonoBehaviour
     void Letgo()
     {
         //Debug.Log("Letgo called.");
+
+        // let go of climbing object
+        if (climbingCollider != null)
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.useGravity = true;
+            }
+            climbingCollider = null;
+
+            return;
+        }
 
         Destroy(holding.gameObject.GetComponent<FixedJoint>());
         holding = null;

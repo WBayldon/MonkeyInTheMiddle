@@ -117,6 +117,13 @@ namespace Invector.vCharacterController
             if (PickUp.heldItem != null && PickUp.heldItem.disableJumpingWhenHeld)
                 return;
 
+            // stop climbing
+            if (PickUp.climbingCollider != null)
+            {
+                PickUp.climbingCollider = null;
+                _rigidbody.useGravity = true;
+            }
+
             // trigger jump behaviour
             jumpCounter = jumpTimer;
             isJumping = true;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Invector.vCharacterController
 {
@@ -168,7 +169,35 @@ namespace Invector.vCharacterController
             // calculate input smooth
             inputSmooth = Vector3.Lerp(inputSmooth, input, (isStrafing ? strafeSpeed.movementSmooth : freeSpeed.movementSmooth) * Time.deltaTime);
 
-            if (!isGrounded || isJumping) return;
+            if ((!isGrounded && PickUp.climbingCollider == null) || isJumping) return;
+
+            // used in and outside of next if statement
+            bool useVerticalVelocity;
+            Vector3 targetPosition;
+            Vector3 targetVelocity;
+
+            // climbing logic
+            if (PickUp.climbingCollider != null)
+            {
+                _rigidbody.linearVelocity = Vector3.zero;
+                
+                _direction.x = 0;
+                _direction.z = 0;
+                _direction.y = Mathf.Clamp(inputSmooth.z, -1f, 1f);
+
+                // limit the input
+                if (_direction.magnitude > 1f)
+                    _direction.Normalize();
+
+                targetPosition = (useRootMotion ? animator.rootPosition : _rigidbody.position) + _direction * (stopMove ? 0 : moveSpeed) * Time.deltaTime;
+                targetVelocity = (targetPosition - transform.position) / Time.deltaTime;
+
+                useVerticalVelocity = false;
+                if (useVerticalVelocity) targetVelocity.y = _rigidbody.linearVelocity.y;
+                _rigidbody.linearVelocity = targetVelocity;
+
+                return;
+            }
 
             _direction.y = 0;
             _direction.x = Mathf.Clamp(_direction.x, -1f, 1f);
@@ -183,10 +212,10 @@ namespace Invector.vCharacterController
                 moveSpeed *= PickUp.heldItem.reduceSpeedWhenHeld;
             }
 
-            Vector3 targetPosition = (useRootMotion ? animator.rootPosition : _rigidbody.position) + _direction * (stopMove ? 0 : moveSpeed) * Time.deltaTime;
-            Vector3 targetVelocity = (targetPosition - transform.position) / Time.deltaTime;
+            targetPosition = (useRootMotion ? animator.rootPosition : _rigidbody.position) + _direction * (stopMove ? 0 : moveSpeed) * Time.deltaTime;
+            targetVelocity = (targetPosition - transform.position) / Time.deltaTime;
 
-            bool useVerticalVelocity = true;
+            useVerticalVelocity = true;
             if (useVerticalVelocity) targetVelocity.y = _rigidbody.linearVelocity.y;
             _rigidbody.linearVelocity = targetVelocity;
         }
@@ -243,7 +272,7 @@ namespace Invector.vCharacterController
 
         protected virtual void ControlJumpBehaviour()
         {
-            if (!isJumping) return;
+            if (!isJumping || PickUp.climbingCollider != null) return;
 
             jumpCounter -= Time.deltaTime;
             if (jumpCounter <= 0)
@@ -259,7 +288,7 @@ namespace Invector.vCharacterController
 
         public virtual void AirControl()
         {
-            if ((isGrounded && !isJumping)) return;
+            if ((isGrounded && !isJumping) || PickUp.climbingCollider != null) return;
             if (transform.position.y > heightReached) heightReached = transform.position.y;
             inputSmooth = Vector3.Lerp(inputSmooth, input, airSmooth * Time.deltaTime);
 
@@ -302,7 +331,8 @@ namespace Invector.vCharacterController
             if (groundDistance <= groundMinDistance)
             {
                 isGrounded = true;
-                if (!isJumping && groundDistance > 0.05f)
+
+                if (!isJumping && groundDistance > 0.05f && PickUp.climbingCollider == null)
                     _rigidbody.AddForce(transform.up * (extraGravity * 2 * Time.deltaTime), ForceMode.VelocityChange);
 
                 heightReached = transform.position.y;
@@ -316,12 +346,12 @@ namespace Invector.vCharacterController
                     // check vertical velocity
                     verticalVelocity = _rigidbody.linearVelocity.y;
                     // apply extra gravity when falling
-                    if (!isJumping)
+                    if (!isJumping && PickUp.climbingCollider == null)
                     {
                         _rigidbody.AddForce(transform.up * extraGravity * Time.deltaTime, ForceMode.VelocityChange);
                     }
                 }
-                else if (!isJumping)
+                else if (!isJumping && PickUp.climbingCollider == null)
                 {
                     _rigidbody.AddForce(transform.up * (extraGravity * 2 * Time.deltaTime), ForceMode.VelocityChange);
                 }
