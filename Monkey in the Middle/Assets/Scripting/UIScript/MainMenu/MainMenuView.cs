@@ -75,12 +75,21 @@ public class MainMenuView : MonoBehaviour
         settingsButton.clicked += OnSettingsClicked;
         quitButton.clicked += OnQuitClicked;
         levelSelectBackButton.clicked += OnLevelSelectBackClicked;
-        for (int i = 0; i < levels.Count; i++)
+
+        for (int i = 0; ; i++)
         {
             var button = levelSelectPanel.Q<Button>($"Level{i + 1}Button");
-            if (button == null) continue;
+            if (button == null) break;
 
             string scene = levels.Get(i);
+
+            if (string.IsNullOrEmpty(scene))
+            {
+                button.SetEnabled(false);
+                button.AddToClassList("locked");
+                continue;
+            }
+
             System.Action handler = () => { if (!sliding && !closing) SceneManager.LoadScene(scene); };
             button.clicked += handler;
             levelBindings.Add((button, handler));
@@ -140,8 +149,15 @@ public class MainMenuView : MonoBehaviour
     }
 
     // Buttons
-    private void OnNewGameClicked() { if (!closing && !sliding && !levelSelectOpen) SceneManager.LoadScene(levels.GetFirst()); }
-
+    private void OnNewGameClicked()
+    {
+#if UNITY_EDITOR
+        CloseMenu();
+#else
+        if (!closing && !sliding && !levelSelectOpen) 
+            SceneManager.LoadScene(levels.GetFirst());
+#endif
+    }
     private void OnLevelSelectClicked()
     {
         if (closing || sliding || levelSelectOpen) return;

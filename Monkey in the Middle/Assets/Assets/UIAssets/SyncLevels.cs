@@ -9,14 +9,23 @@ public class SyncLevels : MonoBehaviour
     public string Get(int index) =>
         index >= 0 && index < sceneNames.Length ? sceneNames[index] : null;
 
-    /// <summary>Returns the scene after the given one, or null if there isn't one.</summary>
-    public string GetNext(string current)
+    /// <summary>
+    /// Returns the next scene's name or null if none
+    /// </summary>
+    /// <param name="previous">The previous scene's name</param>
+    public string GetNext(string previous)
     {
         for (int i = 0; i < sceneNames.Length - 1; i++)
-            if (sceneNames[i] == current) return sceneNames[i + 1];
+            if (sceneNames[i] == previous) return sceneNames[i + 1];
         return null;
     }
 
-    /// <summary>Returns the first scene in the list, or null if the list is empty.</summary>
-    public string GetFirst() => sceneNames.Length > 0 ? sceneNames[0] : null;
+    /// <summary>
+    /// Returns the first scene's name or null if none
+    /// </summary>
+    public string GetFirst()
+    {
+        if (sceneNames.Length > 0) return sceneNames[0];
+        else return null;
+    }
 }

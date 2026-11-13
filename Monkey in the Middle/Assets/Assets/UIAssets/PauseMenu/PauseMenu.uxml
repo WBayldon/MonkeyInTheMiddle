@@ -9,8 +9,15 @@
             <ui:Button text="Level Select" name="LevelSelectButton" class="button p-text"/>
             <ui:Button text="Main Menu" name="MainMenuButton" class="button p-text"/>
         </ui:VisualElement>
-        <ui:VisualElement name="LevelSelect" class="panel centered" style="display: none; top: auto; left: auto;">
-            <ui:Label text="Level Select" name="MenuName" class="p-text"/>
+        <ui:VisualElement name="Win" class="panel centered" style="display: none; left: auto; top: auto;">
+            <ui:Label text="You Win!" name="MenuName" class="p-text"/>
+            <ui:Button text="Next Level" name="NextLevelButton" class="button p-text"/>
+            <ui:Button text="Level Select" name="LevelSelectButton" class="button p-text"/>
+            <ui:Button text="Restart" name="UnstuckButton" class="button p-text"/>
+            <ui:Button text="Main Menu" name="MainMenuButton" class="button p-text"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="LevelSelect" class="panel centered" style="border-bottom-left-radius: 45px; align-items: center; display: none;">
+            <ui:Label text="Level Select" name="MenuName" class="p-text" style="align-self: center;"/>
             <ui:Button text="Level 1" name="Level1Button" class="button p-text"/>
             <ui:Button text="Level 2" name="Level2Button" class="button p-text"/>
             <ui:Button text="Level 3" name="Level3Button" class="button p-text"/>
@@ -20,13 +27,6 @@
             <ui:Button text="Level 7" name="Level7Button" class="button p-text"/>
             <ui:Button text="Level 8" name="Level8Button" class="button p-text"/>
             <ui:Button text="Back" name="BackButton" class="button p-text"/>
-        </ui:VisualElement>
-        <ui:VisualElement name="Win" class="panel centered" style="display: none; left: auto; top: auto;">
-            <ui:Label text="You Win!" name="MenuName" class="p-text"/>
-            <ui:Button text="Next Level" name="NextLevelButton" class="button p-text"/>
-            <ui:Button text="Level Select" name="LevelSelectButton" class="button p-text"/>
-            <ui:Button text="Restart" name="UnstuckButton" class="button p-text"/>
-            <ui:Button text="Main Menu" name="MainMenuButton" class="button p-text"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

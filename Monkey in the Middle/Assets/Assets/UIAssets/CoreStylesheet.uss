@@ -1,13 +1,10 @@
 .centered {
-    position: absolute;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-    display: none;
+    display: flex;
+    position: absolute;
 }
 
 #Background {
@@ -78,8 +75,8 @@
     border-radius: 40px;
 }
 
-.locked .button:hover {
-    picking-mode: ignore;
+.locked .button:hover,
+.button.locked:hover {
     background-color: rgba(255, 255, 255, 0.4);
     width: 300px;
     height: 70px;

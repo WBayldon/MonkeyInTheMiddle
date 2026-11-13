@@ -79,9 +79,17 @@ public class PauseMenuView : MonoBehaviour
         for (int i = 0; i < levels.Count; i++)
         {
             var button = levelSelectPanel.Q<Button>($"Level{i + 1}Button");
-            if (button == null) continue;
+            if (button == null) break;
 
             string scene = levels.Get(i);
+
+            if (string.IsNullOrEmpty(scene))
+            {
+                button.SetEnabled(false);
+                button.AddToClassList("locked");
+                continue;
+            }
+
             System.Action handler = () => { if (!animating) LoadLevel(scene); };
             button.clicked += handler;
             levelBindings.Add((button, handler));
