@@ -26,6 +26,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelBasicOpenArea.unity
     guid: 92ac58c5c1dea5c459163abeeea871d0
+  - enabled: 1
+    path: Assets/Scenes/ClimbingIntro.unity
+    guid: c5aa6544e0ba71e4395fce0a8e01f307
+  - enabled: 1
+    path: Assets/Scenes/beachlevel.unity
+    guid: 12ad31a6f7279b24b844774000439bdf
+  - enabled: 1
+    path: Assets/Scenes/CircleLevel.unity
+    guid: ea1be8f32fcdad64680d09cf3f57c4de
+  - enabled: 1
+    path: Assets/Scenes/StrafeLvl.unity
+    guid: 43584a4f3e54a354ba55da8658a920b3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
