@@ -16,7 +16,7 @@
                 <ui:Button text="Level Select" name="LevelSelectButton" class="button p-text"/>
             </ui:VisualElement>
             <ui:VisualElement name="RightControls" class="panel" style="display: flex; border-bottom-left-radius: 45px; border-bottom-right-radius: 0; right: 0; bottom: 0; align-items: flex-end;">
-                <ui:Button text="Settings" name="SettingsButton" class="button p-text"/>
+                <ui:Button text="Settings" name="SettingsButton" enabled="false" class="button p-text locked"/>
                 <ui:Button text="Credits" name="CreditsButton" enabled="false" class="button p-text locked"/>
                 <ui:Button text="Quit Game" name="QuitGameButton" class="button p-text"/>
             </ui:VisualElement>
