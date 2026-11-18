@@ -105,7 +105,11 @@ public class PickUp : MonoBehaviour
 
             holding.transform.position += Vector3.up * lowestDif;
 
-            FixedJoint holdJoint = holding.gameObject.AddComponent<FixedJoint>();
+            SpringJoint holdJoint = holding.gameObject.AddComponent<SpringJoint>();
+            holdJoint.spring = holdJoint.spring * 10;
+            holdJoint.anchor = this.transform.position;
+            holdJoint.connectedAnchor = new Vector3(0, 1, 1.75f);
+            holdJoint.enableCollision = true;
             // the character pivots around the center of mass when connected with a joint,
             // so reduce the held items mass so it doesn't affect the center of mass as much
             holdJoint.connectedMassScale = 0.1f / holding.GetComponent<Rigidbody>().mass;
@@ -130,7 +134,7 @@ public class PickUp : MonoBehaviour
             return;
         }
 
-        Destroy(holding.gameObject.GetComponent<FixedJoint>());
+        Destroy(holding.gameObject.GetComponent<SpringJoint>());
         holding = null;
         heldItem = null;
     }
